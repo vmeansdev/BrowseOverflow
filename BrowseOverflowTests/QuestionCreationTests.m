@@ -63,7 +63,7 @@ NSString *const kTestDomain = @"Test domain";
 
 - (void)testConformingObjectCanBeDelegate{
     id<StackOverflowManagerDelegate> delegate = [[MockStackOverflowManagerDelegate alloc] init];
-    XCTAssertThrows(mgr.delegate = delegate,
+    XCTAssertNoThrow(mgr.delegate = delegate,
                      @"Object conforming to the delegate protocol should be used "
                      @"as the delegate");
 }
