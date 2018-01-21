@@ -12,4 +12,6 @@
 
 - (void)searchForQuestionsWithTag:(NSString *)tag;
 
+- (void)searchForQuestionWithID:(NSInteger)questionID;
+
 @end
