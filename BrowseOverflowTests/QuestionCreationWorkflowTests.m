@@ -7,10 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "TestConsts.h"
 #import "StackOverflowManager.h"
 #import "MockStackOverflowManagerDelegate.h"
 #import "MockStackOverflowCommunicator.h"
-#import "TestConsts.h"
 
 #import "Topic.h"
 #import "Question.h"
@@ -18,20 +18,17 @@
 #import "FakeQuestionBuilder.h"
 
 
-@interface QuestionCreationTests : XCTestCase
+@interface QuestionCreationWorkflowTests : XCTestCase
 
 @end
 
-@implementation QuestionCreationTests{
+@implementation QuestionCreationWorkflowTests{
 @private
     StackOverflowManager *mgr;
-    MockStackOverflowCommunicator *communicator;
     MockStackOverflowManagerDelegate *delegate;
     FakeQuestionBuilder *questionBuilder;
     NSError *underlyingError;
     NSArray *questionArray;
-    
-    Question *questionToFetch;
 }
 
 - (void)setUp {
@@ -42,15 +39,10 @@
     underlyingError = [NSError errorWithDomain:kTestDomain
                                           code:0 userInfo:nil];
     
-    questionToFetch = [[Question alloc] init];
-    questionToFetch.questionID = 1234;
-    questionArray = @[questionToFetch];
+    Question *question = [[Question alloc] init];
+    questionArray = @[question];
     
     questionBuilder = [[FakeQuestionBuilder alloc] init];
-    mgr.questionBuilder = questionBuilder;
-    
-    communicator = [[MockStackOverflowCommunicator alloc] init];
-    mgr.communicator = communicator;
 }
 
 - (void)tearDown {
@@ -59,8 +51,6 @@
     underlyingError = nil;
     questionArray = nil;
     questionBuilder = nil;
-    communicator = nil;
-    questionToFetch = nil;
     [super tearDown];
 }
 
@@ -154,31 +144,5 @@
     [mgr receivedQuestionsJSON:kFakeJSON];
     XCTAssertEqualObjects([delegate receivedQuestions], @[],
                           @"Returning an empty array is not an error");
-}
-
-- (void)testAskingForQuestionBodyMeansRequestingData{
-    [mgr fetchBodyForQuestion:questionToFetch];
-    XCTAssertTrue([communicator wasAskedToFetchBody],
-                  @"The communicator should need to retrieve data for the "
-                  @"question body");
-}
-
-- (void)testDelegateNotifiedOfFailureToFetchQuestion {
-    [mgr fetchingQuestionBodyFailedWithError:underlyingError];
-    XCTAssertNotNil(delegate.fetchError.userInfo[NSUnderlyingErrorKey],
-                    @"Delegate should have found out about this error");
-}
-
-- (void)testManagerPassesRetrievedQuestionBodyToQuestionBuilder {
-    [mgr receivedQuestionBodyJSON:kFakeJSON];
-    XCTAssertEqualObjects(questionBuilder.JSON, kFakeJSON,
-                          @"Successfully-retrieved data should be passed to the builder");
-}
-
-- (void)testManagerPassesQuestionItWasSentToQuestionBuilderForFillingIn {
-    [mgr fetchBodyForQuestion:questionToFetch];
-    [mgr receivedQuestionBodyJSON:kFakeJSON];
-    XCTAssertEqualObjects(questionBuilder.questionToFill, questionToFetch,
-                          @"The question should have been passed to the builder");
 }
 @end

@@ -11,9 +11,9 @@
 #import "QuestionBuilder.h"
 
 #import "Topic.h"
+#import "Question.h"
 
 NSString *StackOverflowManagerError = @"StackOverflowManagerError";
-NSString *StackOverflowManagerSearchFailedError = @"StackOverflowManagerSearchFailedError";
 
 @implementation StackOverflowManager
 @synthesize delegate;
@@ -28,6 +28,7 @@ NSString *StackOverflowManagerSearchFailedError = @"StackOverflowManagerSearchFa
     delegate = newDelegate;
 }
 
+#pragma mark - Questions
 - (void)fetchQuestionsOnTopic:(Topic *)topic{
     [self.communicator searchForQuestionsWithTag:topic.tag];
 }
@@ -47,16 +48,43 @@ NSString *StackOverflowManagerSearchFailedError = @"StackOverflowManagerSearchFa
 }
 
 - (void)tellDelegateAboutQuestionSearchError:(NSError *)error{
+    NSDictionary *errorInfo = [self errorInfoFor:error];
+    
+    NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError
+                                                   code:StackOverflowManagerErrorQuestionSearchCode
+                                               userInfo:errorInfo];
+    [delegate fetchingQuestionsFailedWithError:reportableError];
+}
+
+#pragma mark - Question body
+- (void)fetchBodyForQuestion:(Question *)question{
+    self.questionNeedingBody = question;
+    [self.communicator searchForQuestionWithID:question.questionID];
+}
+
+- (void)receivedQuestionBodyJSON:(NSString *)objectNotation{
+    [self.questionBuilder fillInDetailsForQuestion:self.questionNeedingBody fromJSON:objectNotation];
+    [delegate didReceiveBodyForQuestion: self.questionNeedingBody];
+    self.questionNeedingBody = nil;
+}
+
+- (void)fetchingQuestionBodyFailedWithError:(NSError *)error{
+    NSDictionary *errorInfo = [self errorInfoFor:error];
+    
+    NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError
+                                                   code:StackOverflowManagerErrorQuestionBodyFetchCode
+                                               userInfo:errorInfo];
+    [delegate fetchingQuestionBodyFailedWithError:reportableError];
+}
+
+#pragma mark - Private
+- (NSDictionary *)errorInfoFor:(NSError *)error{
     NSDictionary *errorInfo = nil;
     
     if (error){
         errorInfo = @{NSUnderlyingErrorKey: error};
     }
     
-    NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerSearchFailedError
-                                                   code:StackOverflowManagerErrorQuestionSearchCode
-                                               userInfo:errorInfo];
-    [delegate fetchingQuestionsFailedWithError:reportableError];
+    return errorInfo;
 }
-
 @end

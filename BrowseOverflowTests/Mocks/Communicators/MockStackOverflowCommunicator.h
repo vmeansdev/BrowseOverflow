@@ -13,4 +13,6 @@
 
 - (BOOL)wasAskedToFetchQuestions;
 
+- (BOOL)wasAskedToFetchBody;
+
 @end

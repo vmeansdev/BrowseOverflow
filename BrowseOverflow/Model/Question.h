@@ -9,13 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @class Answer;
+@class Person;
 @interface Question : NSObject{
     NSMutableSet *answerSet;
 }
 
-@property (nonatomic) NSDate *date;
+@property (nonatomic) NSInteger questionID;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *body;
+@property (nonatomic) NSDate *date;
 @property (nonatomic) NSInteger score;
+@property (nonatomic) Person *asker;
 @property (readonly) NSArray *answers;
 
 - (void)addAnswer:(Answer *)answer;
