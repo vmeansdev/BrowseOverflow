@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "Question.h"
 #import "Answer.h"
+#import "Person.h"
 
 @interface QuestionTests : XCTestCase
 
@@ -18,14 +19,18 @@
     Question *question;
     Answer *lowScore;
     Answer *highScore;
+    Person *asker;
 }
 
 - (void)setUp {
     [super setUp];
+    asker = [[Person alloc] initWithName:@"Graham Lee" avatarLocation:@"http://example.com/avatar.png"];
+    
     question = [[Question alloc] init];
     question.date = [NSDate distantPast];
     question.title = @"Do iPhones also dream of electric sheep?";
     question.score = 42;
+    question.asker = asker;
     
     lowScore = [[Answer alloc] init];
     lowScore.score = -4;
@@ -78,6 +83,11 @@
     NSInteger lowIndex = [answers indexOfObject:lowScore];
     XCTAssertTrue(highIndex < lowIndex,
                   @"High-scoring answer comes first");
+}
+
+- (void)testQuestionWasAskedBySomeone{
+    XCTAssertEqualObjects(question.asker, asker,
+                          @"Question should keep track of who asked it.");
 }
 
 @end
