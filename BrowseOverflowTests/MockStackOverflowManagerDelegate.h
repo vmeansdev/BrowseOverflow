@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "StackOverflowManagerDelegate.h"
 
-@interface MockStackOverflowManagerDeleagte : StackOverflowManagerDelegate
+@class Question;
+
+@interface MockStackOverflowManagerDelegate : NSObject <StackOverflowManagerDelegate>
+
+@property (nonatomic) NSError *fetchError;
+
+@property (nonatomic) NSArray *receivedQuestions;
+
+@property (nonatomic) Question *bodyQuestion;
 
 @end

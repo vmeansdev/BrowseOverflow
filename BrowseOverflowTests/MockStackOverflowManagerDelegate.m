@@ -6,8 +6,24 @@
 //  Copyright © 2018 vmeansdev. All rights reserved.
 //
 
-#import "MockStackOverflowManagerDeleagte.h"
+#import "MockStackOverflowManagerDelegate.h"
 
-@implementation MockStackOverflowManagerDeleagte
+@implementation MockStackOverflowManagerDelegate
+
+- (void)fetchingQuestionsFailedWithError:(NSError *)error{
+    self.fetchError = error;
+}
+
+- (void)didReceiveQuestions:(NSArray *)questions{
+    self.receivedQuestions = questions;
+}
+
+- (void)fetchingQuestionBodyFailedWithError:(NSError *)error{
+    self.fetchError = error;
+}
+
+- (void)didReceiveBodyForQuestion:(Question *)question{
+    self.bodyQuestion = question;
+}
 
 @end
