@@ -102,7 +102,6 @@
 		85F38FD5201504DD00FF408E /* StackOverflowCommunicatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StackOverflowCommunicatorTests.m; sourceTree = "<group>"; };
 		85F38FDD2015081800FF408E /* InspectableStackOverflowCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InspectableStackOverflowCommunicator.h; sourceTree = "<group>"; };
 		85F38FDE2015081800FF408E /* InspectableStackOverflowCommunicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InspectableStackOverflowCommunicator.m; sourceTree = "<group>"; };
-		85F38FE020151F2F00FF408E /* NetworkSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkSession.h; sourceTree = "<group>"; };
 		85F38FE7201535C900FF408E /* NSURLSessionDataTaskMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionDataTaskMock.h; sourceTree = "<group>"; };
 		85F38FE8201535C900FF408E /* NSURLSessionDataTaskMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionDataTaskMock.m; sourceTree = "<group>"; };
 		85F38FEA2015375100FF408E /* NSURLSessionMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionMock.h; sourceTree = "<group>"; };
@@ -252,7 +251,6 @@
 			isa = PBXGroup;
 			children = (
 				85F38FB92011217D00FF408E /* StackOverflowManagerDelegate.h */,
-				85F38FE020151F2F00FF408E /* NetworkSession.h */,
 				85F38FED20161EC100FF408E /* StackOverflowCommunicatorDelegate.h */,
 			);
 			path = Protocols;
