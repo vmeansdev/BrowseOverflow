@@ -38,6 +38,11 @@
 		85F38FCE2011451800FF408E /* QuestionBuilderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FCD2011451800FF408E /* QuestionBuilderTests.m */; };
 		85F38FD12013DFA000FF408E /* QuestionCreationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FD02013DFA000FF408E /* QuestionCreationTests.m */; };
 		85F38FD42014EDA400FF408E /* MockStackOverflowManagerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FD32014EDA400FF408E /* MockStackOverflowManagerDelegate.m */; };
+		85F38FD6201504DD00FF408E /* StackOverflowCommunicatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FD5201504DD00FF408E /* StackOverflowCommunicatorTests.m */; };
+		85F38FDF2015081800FF408E /* InspectableStackOverflowCommunicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FDE2015081800FF408E /* InspectableStackOverflowCommunicator.m */; };
+		85F38FE9201535C900FF408E /* NSURLSessionDataTaskMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FE8201535C900FF408E /* NSURLSessionDataTaskMock.m */; };
+		85F38FEC2015375100FF408E /* NSURLSessionMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FEB2015375100FF408E /* NSURLSessionMock.m */; };
+		85F38FF1201621C500FF408E /* FakeURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F38FF0201621C500FF408E /* FakeURLResponse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,8 +97,19 @@
 		85F38FCD2011451800FF408E /* QuestionBuilderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionBuilderTests.m; sourceTree = "<group>"; };
 		85F38FCF2013DE1000FF408E /* TestConsts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestConsts.h; sourceTree = "<group>"; };
 		85F38FD02013DFA000FF408E /* QuestionCreationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QuestionCreationTests.m; sourceTree = "<group>"; };
-		85F38FD22014EDA400FF408E /* MockStackOverflowManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MockStackOverflowManagerDelegate.h; path = BrowseOverflowTests/MockStackOverflowManagerDelegate.h; sourceTree = SOURCE_ROOT; };
-		85F38FD32014EDA400FF408E /* MockStackOverflowManagerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MockStackOverflowManagerDelegate.m; path = BrowseOverflowTests/MockStackOverflowManagerDelegate.m; sourceTree = SOURCE_ROOT; };
+		85F38FD22014EDA400FF408E /* MockStackOverflowManagerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MockStackOverflowManagerDelegate.h; path = BrowseOverflowTests/Mocks/Delegates/MockStackOverflowManagerDelegate.h; sourceTree = SOURCE_ROOT; };
+		85F38FD32014EDA400FF408E /* MockStackOverflowManagerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MockStackOverflowManagerDelegate.m; path = BrowseOverflowTests/Mocks/Delegates/MockStackOverflowManagerDelegate.m; sourceTree = SOURCE_ROOT; };
+		85F38FD5201504DD00FF408E /* StackOverflowCommunicatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StackOverflowCommunicatorTests.m; sourceTree = "<group>"; };
+		85F38FDD2015081800FF408E /* InspectableStackOverflowCommunicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InspectableStackOverflowCommunicator.h; sourceTree = "<group>"; };
+		85F38FDE2015081800FF408E /* InspectableStackOverflowCommunicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InspectableStackOverflowCommunicator.m; sourceTree = "<group>"; };
+		85F38FE020151F2F00FF408E /* NetworkSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkSession.h; sourceTree = "<group>"; };
+		85F38FE7201535C900FF408E /* NSURLSessionDataTaskMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionDataTaskMock.h; sourceTree = "<group>"; };
+		85F38FE8201535C900FF408E /* NSURLSessionDataTaskMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionDataTaskMock.m; sourceTree = "<group>"; };
+		85F38FEA2015375100FF408E /* NSURLSessionMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionMock.h; sourceTree = "<group>"; };
+		85F38FEB2015375100FF408E /* NSURLSessionMock.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionMock.m; sourceTree = "<group>"; };
+		85F38FED20161EC100FF408E /* StackOverflowCommunicatorDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StackOverflowCommunicatorDelegate.h; sourceTree = "<group>"; };
+		85F38FEF201621C500FF408E /* FakeURLResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FakeURLResponse.h; sourceTree = "<group>"; };
+		85F38FF0201621C500FF408E /* FakeURLResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FakeURLResponse.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +176,7 @@
 				85F38FCD2011451800FF408E /* QuestionBuilderTests.m */,
 				85F38FCF2013DE1000FF408E /* TestConsts.h */,
 				85F38FD02013DFA000FF408E /* QuestionCreationTests.m */,
+				85F38FD5201504DD00FF408E /* StackOverflowCommunicatorTests.m */,
 			);
 			path = BrowseOverflowTests;
 			sourceTree = "<group>";
@@ -223,8 +240,9 @@
 		85F38FB4201120B900FF408E /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				85F38FF22016279800FF408E /* Delegates */,
+				85F38FE62015359600FF408E /* Networking */,
 				85F38FC92011363500FF408E /* Builders */,
-				85F38FC82011363000FF408E /* Delegates */,
 				85F38FC72011362500FF408E /* Communicators */,
 			);
 			path = Mocks;
@@ -234,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				85F38FB92011217D00FF408E /* StackOverflowManagerDelegate.h */,
+				85F38FE020151F2F00FF408E /* NetworkSession.h */,
+				85F38FED20161EC100FF408E /* StackOverflowCommunicatorDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -259,19 +279,11 @@
 		85F38FC72011362500FF408E /* Communicators */ = {
 			isa = PBXGroup;
 			children = (
+				85F38FDC201507F500FF408E /* Support */,
 				85F38FBF2011260200FF408E /* MockStackOverflowCommunicator.h */,
 				85F38FC02011260200FF408E /* MockStackOverflowCommunicator.m */,
 			);
 			path = Communicators;
-			sourceTree = "<group>";
-		};
-		85F38FC82011363000FF408E /* Delegates */ = {
-			isa = PBXGroup;
-			children = (
-				85F38FD22014EDA400FF408E /* MockStackOverflowManagerDelegate.h */,
-				85F38FD32014EDA400FF408E /* MockStackOverflowManagerDelegate.m */,
-			);
-			path = Delegates;
 			sourceTree = "<group>";
 		};
 		85F38FC92011363500FF408E /* Builders */ = {
@@ -281,6 +293,45 @@
 				85F38FCB2011366100FF408E /* FakeQuestionBuilder.m */,
 			);
 			path = Builders;
+			sourceTree = "<group>";
+		};
+		85F38FDC201507F500FF408E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				85F38FDD2015081800FF408E /* InspectableStackOverflowCommunicator.h */,
+				85F38FDE2015081800FF408E /* InspectableStackOverflowCommunicator.m */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		85F38FE62015359600FF408E /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				85F38FEE2016219800FF408E /* URLResponse */,
+				85F38FE7201535C900FF408E /* NSURLSessionDataTaskMock.h */,
+				85F38FE8201535C900FF408E /* NSURLSessionDataTaskMock.m */,
+				85F38FEA2015375100FF408E /* NSURLSessionMock.h */,
+				85F38FEB2015375100FF408E /* NSURLSessionMock.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		85F38FEE2016219800FF408E /* URLResponse */ = {
+			isa = PBXGroup;
+			children = (
+				85F38FEF201621C500FF408E /* FakeURLResponse.h */,
+				85F38FF0201621C500FF408E /* FakeURLResponse.m */,
+			);
+			path = URLResponse;
+			sourceTree = "<group>";
+		};
+		85F38FF22016279800FF408E /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				85F38FD22014EDA400FF408E /* MockStackOverflowManagerDelegate.h */,
+				85F38FD32014EDA400FF408E /* MockStackOverflowManagerDelegate.m */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,20 +454,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85F38FE9201535C900FF408E /* NSURLSessionDataTaskMock.m in Sources */,
 				85F38FA82010F2E000FF408E /* AnswerTests.m in Sources */,
 				85F38FCC2011366100FF408E /* FakeQuestionBuilder.m in Sources */,
 				85F38FA2200FE89600FF408E /* Person.m in Sources */,
 				85F38FCE2011451800FF408E /* QuestionBuilderTests.m in Sources */,
 				85F38F87200E0F5F00FF408E /* TopicTests.m in Sources */,
 				85F38FD42014EDA400FF408E /* MockStackOverflowManagerDelegate.m in Sources */,
+				85F38FD6201504DD00FF408E /* StackOverflowCommunicatorTests.m in Sources */,
 				85F38FC12011260200FF408E /* MockStackOverflowCommunicator.m in Sources */,
+				85F38FF1201621C500FF408E /* FakeURLResponse.m in Sources */,
 				85F38FAC201118B500FF408E /* Answer.m in Sources */,
 				85F38FC62011356500FF408E /* QuestionBuilder.m in Sources */,
+				85F38FDF2015081800FF408E /* InspectableStackOverflowCommunicator.m in Sources */,
 				85F38F91200E1A8900FF408E /* Question.m in Sources */,
 				85F38F8D200E1A0300FF408E /* QuestionTests.m in Sources */,
 				85F38FB3201120B300FF408E /* StackOverflowManager.m in Sources */,
 				85F38FD12013DFA000FF408E /* QuestionCreationTests.m in Sources */,
 				85F38FAE20111EED00FF408E /* QuestionCreationWorkflowTests.m in Sources */,
+				85F38FEC2015375100FF408E /* NSURLSessionMock.m in Sources */,
 				85F38FBE201125B300FF408E /* StackOverflowCommunicator.m in Sources */,
 				85F38F8B200E0FDF00FF408E /* Topic.m in Sources */,
 				85F38F9E200FE7A300FF408E /* PersonTests.m in Sources */,
