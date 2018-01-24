@@ -17,7 +17,7 @@
     wasAskedToFetchQuestions = YES;
 }
 
-- (void)searchForQuestionWithID:(NSInteger)questionID{
+- (void)downloadInformationForQuestionWithID:(NSInteger)questionID{
     wasAskedToFetchBody = YES;
 }
 

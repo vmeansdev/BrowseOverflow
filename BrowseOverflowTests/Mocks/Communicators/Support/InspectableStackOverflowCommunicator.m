@@ -10,4 +10,16 @@
 
 @implementation InspectableStackOverflowCommunicator
 
+- (NSURL *)URLToFetch{
+    return fetchingURL;
+}
+
+- (NSData *)responseData{
+    return rawResponseData;
+}
+
+- (NSError *)responseError{
+    return responseError;
+}
+
 @end

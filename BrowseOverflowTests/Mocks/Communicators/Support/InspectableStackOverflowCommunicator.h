@@ -10,4 +10,10 @@
 
 @interface InspectableStackOverflowCommunicator : StackOverflowCommunicator
 
+- (NSURL *)URLToFetch;
+
+- (NSData *)responseData;
+
+- (NSError *)responseError;
+
 @end
