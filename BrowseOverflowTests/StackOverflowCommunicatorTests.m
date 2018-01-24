@@ -7,33 +7,99 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "InspectableStackOverflowCommunicator.h"
+#import "NSURLSessionMock.h"
+#import "NSURLSessionDataTaskMock.h"
+#import "FakeURLResponse.h"
+#import "TestConsts.h"
+
+static NSString *const kTestString = @"Test string";
+static NSString *const kIosTag = @"ios";
 
 @interface StackOverflowCommunicatorTests : XCTestCase
 
 @end
 
-@implementation StackOverflowCommunicatorTests
+@implementation StackOverflowCommunicatorTests{
+    InspectableStackOverflowCommunicator *communicator;
+    NSURLSessionMock *session;
+}
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    FakeURLResponse *successResponse = [[FakeURLResponse alloc] initWithStatusCode:200];
+    
+    session = [[NSURLSessionMock alloc] init];
+    session.response = (NSHTTPURLResponse *)successResponse;
+    
+    communicator = [[InspectableStackOverflowCommunicator alloc] initWithSession:session];
+    
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    communicator = nil;
+    session = nil;
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testSearchingForQuestionsOnTopicCallsTopicAPI {
+    [communicator searchForQuestionsWithTag:@"ios"];
+    XCTAssertEqualObjects([[communicator URLToFetch] absoluteString],
+                          @"http://api.stackoverflow.com/2.2/search?pagesize=20&order=desc&sort=activity&tagged=ios&site=stackoverflow",
+                          @"Use the search API to find questions with a particular tag");
 }
 
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testFillingInQuestionBodyCallsQuestionAPI{
+    [communicator downloadInformationForQuestionWithID:12345];
+    XCTAssertEqualObjects([[communicator URLToFetch] absoluteString],
+                          @"http://api.stackoverflow.com/2.2/questions/12345?order=desc&sort=activity&site=stackoverflow&filter=!9Z(-wwYGT",
+                          @"Use the question API to get the body for a question");
+}
+
+- (void)testFetchingAnswersToQuestionCallsQuestionAPI {
+    [communicator downloadAnswersToQuestionWithID:12345];
+    XCTAssertEqualObjects([[communicator URLToFetch] absoluteString],
+                          @"http://api.stackoverflow.com/2.2/questions/12345/answers?order=desc&sort=activity&site=stackoverflow",
+                          @"Use the question API to get answers on a given question");
+}
+
+- (NSData *)dataWithString:(NSString *)string{
+    const char *utfString = [string UTF8String];
+    NSData *data = [NSData dataWithBytes:utfString length:strlen(utfString)];
+    return data;
+}
+
+- (void)testDataIsCorrectWhenResponseIsSuccessful {
+
+    NSData *data = [self dataWithString:kTestString];
+    session.data = data;
+    
+    [communicator searchForQuestionsWithTag:kIosTag];
+    
+    XCTAssertEqualObjects([communicator responseData], data,
+                          @"Data should be the same");
+}
+
+- (void)testDataIsNilWhenNetworkErrorOccurred {
+    NSError *error = [NSError errorWithDomain:kTestDomain
+                                         code:0 userInfo:nil];
+    session.error = error;
+    [communicator searchForQuestionsWithTag:kIosTag];
+    XCTAssertEqualObjects([[communicator responseError] userInfo][NSUnderlyingErrorKey],
+                          error,
+                          @"Communicator should store response error");
+    XCTAssertNil([communicator responseData],
+                 @"Response data should be nil when networking error occurred");
+}
+
+- (void)testErrorIsNotNilWhenResponseStatusCodeIsNotEqualToTwoHundred {
+    FakeURLResponse *unsuccessfulResponse = [[FakeURLResponse alloc] initWithStatusCode:400];
+    
+    session.response = (NSHTTPURLResponse *)unsuccessfulResponse;
+    
+    [communicator searchForQuestionsWithTag:kIosTag];
+    XCTAssertNotNil([communicator responseError],
+                    @"Response error should not be nil when response has unsuccessful status code");
 }
 
 @end
