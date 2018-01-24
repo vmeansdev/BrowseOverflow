@@ -8,6 +8,21 @@
 
 #import "FakeURLResponse.h"
 
-@implementation FakeURLResponse
+@implementation FakeURLResponse{
+    NSInteger _code;
+}
+
+- (instancetype)initWithStatusCode:(NSInteger)statusCode{
+    if (self = [super init]){
+        _code = statusCode;
+    }
+    
+    return self;
+}
+
+
+- (NSInteger)statusCode{
+    return _code;
+}
 
 @end

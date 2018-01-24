@@ -10,4 +10,8 @@
 
 @interface FakeURLResponse : NSURLResponse
 
+@property (readonly) NSInteger statusCode;
+
+- (instancetype)initWithStatusCode:(NSInteger)statusCode;
+
 @end
