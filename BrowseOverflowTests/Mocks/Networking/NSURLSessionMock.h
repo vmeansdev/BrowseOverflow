@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^CompletionHandler)(NSData *data, NSURLResponse *response, NSError *error);
+
 @interface NSURLSessionMock : NSURLSession
+
+@property (nonatomic) NSData *data;
+@property (nonatomic) NSHTTPURLResponse *response;
+@property (nonatomic) NSError *error;
 
 @end
