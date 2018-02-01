@@ -59,7 +59,9 @@ static NSString *const kIosTag = @"ios";
 - (void)testFetchingAnswersToQuestionCallsQuestionAPI {
     [communicator downloadAnswersToQuestionWithID:12345];
     XCTAssertEqualObjects([[communicator URLToFetch] absoluteString],
-                          @"http://api.stackoverflow.com/2.2/questions/12345/answers?order=desc&sort=activity&site=stackoverflow",
+                          @"http://api.stackoverflow.com/2.2/questions/12345/"
+                          @"answers?order=desc&sort=activity"
+                          @"&site=stackoverflow&filter=!9Z(-wzu0T",
                           @"Use the question API to get answers on a given question");
 }
 
