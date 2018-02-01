@@ -15,10 +15,14 @@
 
 - (void)fetchingQuestionsFailedWithError:(NSError *)error;
 
-- (void)fetchingQuestionBodyFailedWithError:(NSError *)error;
+- (void)downloadInformationForQuestionFailedWithError:(NSError *)error;
+
+- (void)fetchingAnswersToQuestionFailedWithError:(NSError *)error;
 
 - (void)didReceiveQuestions:(NSArray *)questions;
 
 - (void)didReceiveBodyForQuestion:(Question *)question;
+
+- (void)answersReceivedForQuestion:(Question *)question;
 
 @end

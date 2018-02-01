@@ -9,6 +9,7 @@
 #import "StackOverflowManager.h"
 #import "StackOverflowCommunicator.h"
 #import "QuestionBuilder.h"
+#import "AnswerBuilder.h"
 
 #import "Topic.h"
 #import "Question.h"
@@ -59,7 +60,7 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
 #pragma mark - Question body
 - (void)fetchBodyForQuestion:(Question *)question{
     self.questionNeedingBody = question;
-    [self.communicator searchForQuestionWithID:question.questionID];
+    [self.communicator downloadInformationForQuestionWithID:question.questionID];
 }
 
 - (void)receivedQuestionBodyJSON:(NSString *)objectNotation{
@@ -68,13 +69,43 @@ NSString *StackOverflowManagerError = @"StackOverflowManagerError";
     self.questionNeedingBody = nil;
 }
 
-- (void)fetchingQuestionBodyFailedWithError:(NSError *)error{
+- (void)downloadInformationForQuestionFailedWithError:(NSError *)error {
     NSDictionary *errorInfo = [self errorInfoFor:error];
     
     NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError
                                                    code:StackOverflowManagerErrorQuestionBodyFetchCode
                                                userInfo:errorInfo];
-    [delegate fetchingQuestionBodyFailedWithError:reportableError];
+    [delegate downloadInformationForQuestionFailedWithError:reportableError];
+}
+
+#pragma mark - Answers
+
+- (void)fetchAnswersForQuestion:(Question *)question{
+    self.questionNeedingBody = question;
+    [self.communicator downloadAnswersToQuestionWithID:question.questionID];
+}
+
+- (void)receivedAnswersJSON:(NSString *)objectNotation{
+    NSError *error = nil;
+    if ([self.answerBuilder addAnswersToQuestion: self.questionNeedingBody fromJSON: objectNotation error: &error]) {
+        [delegate answersReceivedForQuestion: self.questionNeedingBody];
+        self.questionNeedingBody = nil;
+    }
+    else {
+        [self downloadAnswersToQuestionFailedWithError: error];
+    }
+}
+
+- (void)downloadAnswersToQuestionFailedWithError:(NSError *)error{
+    self.questionNeedingBody = nil;
+    NSDictionary *userInfo = nil;
+    if (error) {
+        userInfo = @{NSUnderlyingErrorKey: error};
+    }
+    NSError *reportableError = [NSError errorWithDomain:StackOverflowManagerError
+                                                   code:StackOverflowManagerErrorAnswersFetchCode
+                                               userInfo:userInfo];
+    [delegate fetchingAnswersToQuestionFailedWithError:reportableError];
 }
 
 #pragma mark - Private

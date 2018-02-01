@@ -16,4 +16,6 @@ static NSString *const kTestDomain = @"Test domain";
 static NSString *const kNotJSON = @"Not JSON";
 static NSString *const kNoQuestions = @"{\"noquestions\":true}";
 
+static NSString *const kNoAnswers = @"{\"noanswers\": true}";
+
 #endif /* TestConsts_h */

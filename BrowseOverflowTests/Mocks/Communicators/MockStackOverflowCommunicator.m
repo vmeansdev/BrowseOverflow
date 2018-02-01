@@ -11,13 +11,21 @@
 @implementation MockStackOverflowCommunicator{
     BOOL wasAskedToFetchQuestions;
     BOOL wasAskedToFetchBody;
+    NSInteger _questionID;
+}
+
+- (instancetype)init {
+    if ((self = [super init])) {
+        _questionID = NSNotFound;
+    }
+    return self;
 }
 
 - (void)searchForQuestionsWithTag:(NSString *)tag{
     wasAskedToFetchQuestions = YES;
 }
 
-- (void)searchForQuestionWithID:(NSInteger)questionID{
+- (void)downloadInformationForQuestionWithID:(NSInteger)questionID{
     wasAskedToFetchBody = YES;
 }
 
@@ -27,6 +35,14 @@
 
 - (BOOL)wasAskedToFetchBody{
     return wasAskedToFetchBody;
+}
+
+- (void)downloadAnswersToQuestionWithID:(NSInteger)questionID{
+    _questionID = questionID;
+}
+
+- (NSInteger)askedForAnswersToQuestionID{
+    return _questionID;
 }
 
 @end

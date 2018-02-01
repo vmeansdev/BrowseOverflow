@@ -18,12 +18,20 @@
     self.receivedQuestions = questions;
 }
 
-- (void)fetchingQuestionBodyFailedWithError:(NSError *)error{
+- (void)didReceiveBodyForQuestion:(Question *)question{
+    self.bodyQuestion = question;
+}
+
+- (void)answersReceivedForQuestion:(Question *)question{
+    self.bodyQuestion = question;
+}
+
+- (void)fetchingAnswersToQuestionFailedWithError:(NSError *)error{
     self.fetchError = error;
 }
 
-- (void)didReceiveBodyForQuestion:(Question *)question{
-    self.bodyQuestion = question;
+- (void)downloadInformationForQuestionFailedWithError:(NSError *)error{
+    self.fetchError = error;
 }
 
 @end

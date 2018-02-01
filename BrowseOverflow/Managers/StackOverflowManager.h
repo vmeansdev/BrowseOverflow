@@ -8,27 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import "StackOverflowManagerDelegate.h"
+#import "StackOverflowCommunicatorDelegate.h"
 
 @class Topic;
 @class StackOverflowCommunicator;
 @class QuestionBuilder;
 @class Question;
+@class AnswerBuilder;
 
 extern NSString *StackOverflowManagerError;
 
 enum {
     StackOverflowManagerErrorQuestionSearchCode,
-    StackOverflowManagerErrorQuestionBodyFetchCode
+    StackOverflowManagerErrorQuestionBodyFetchCode,
+    StackOverflowManagerErrorAnswersFetchCode
 };
 
 
-@interface StackOverflowManager : NSObject
+@interface StackOverflowManager : NSObject <StackOverflowCommunicatorDelegate>
 
 @property (weak, nonatomic) id <StackOverflowManagerDelegate> delegate;
 
 @property (strong) StackOverflowCommunicator *communicator;
 
 @property (strong) QuestionBuilder *questionBuilder;
+
+@property (strong) AnswerBuilder *answerBuilder;
 
 @property (nonatomic) Question *questionNeedingBody;
 
@@ -44,6 +49,13 @@ enum {
 
 - (void)receivedQuestionBodyJSON:(NSString *)objectNotation;
 
-- (void)fetchingQuestionBodyFailedWithError:(NSError *)error;
+- (void)downloadInformationForQuestionFailedWithError:(NSError *)error;
+
+/** Answers **/
+- (void)fetchAnswersForQuestion:(Question *)question;
+
+- (void)receivedAnswersJSON:(NSString *)objectNotation;
+
+- (void)downloadAnswersToQuestionFailedWithError:(NSError *)error;
 
 @end
