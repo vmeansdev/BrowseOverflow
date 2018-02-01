@@ -10,4 +10,16 @@
 
 @protocol StackOverflowCommunicatorDelegate <NSObject>
 
+- (void)searchingForQuestionsFailedWithError:(NSError *)error;
+
+- (void)downloadInformationForQuestionFailedWithError:(NSError *)error;
+
+- (void)downloadAnswersToQuestionFailedWithError:(NSError *)error;
+
+- (void)receivedQuestionsJSON:(NSString *)objectNotation;
+
+- (void)receivedQuestionBodyJSON:(NSString *)objectNotation;
+
+- (void)receivedAnswersJSON:(NSString *)objectNotation;
+
 @end

@@ -7,11 +7,34 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "StackOverflowCommunicatorDelegate.h"
 
-@interface StackOverflowCommunicator : NSObject
+typedef void (^FetchCompletion)(NSString *, NSError *);
+
+
+extern NSString *StackOverflowCommunicatorErrorDomain;
+
+enum {
+    StackOverflowCommunicatorErrorCode
+};
+
+@interface StackOverflowCommunicator : NSObject{
+    @protected
+    NSURL *fetchingURL;
+    NSData *rawResponseData;
+    NSError *responseError;
+}
+
+@property (nonatomic, weak) id <StackOverflowCommunicatorDelegate> delegate;
+
+- (instancetype)initWithSession:(NSURLSession *)session;
+
+- (void)fetchContentAtURL:(NSURL *)url completion:(FetchCompletion)completion;
 
 - (void)searchForQuestionsWithTag:(NSString *)tag;
 
-- (void)searchForQuestionWithID:(NSInteger)questionID;
+- (void)downloadInformationForQuestionWithID:(NSInteger)questionID;
+
+- (void)downloadAnswersToQuestionWithID:(NSInteger)questionID;
 
 @end
