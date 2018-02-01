@@ -164,7 +164,7 @@
 }
 
 - (void)testDelegateNotifiedOfFailureToFetchQuestion {
-    [mgr fetchingQuestionBodyFailedWithError:underlyingError];
+    [mgr downloadInformationForQuestionFailedWithError:underlyingError];
     XCTAssertNotNil(delegate.fetchError.userInfo[NSUnderlyingErrorKey],
                     @"Delegate should have found out about this error");
 }
