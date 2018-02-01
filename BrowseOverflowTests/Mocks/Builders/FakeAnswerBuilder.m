@@ -10,4 +10,13 @@
 
 @implementation FakeAnswerBuilder
 
+- (BOOL)addAnswersToQuestion: (Question *)question fromJSON: (NSString *)objectNotation error: (NSError **)addError {
+    self.questionToFill = question;
+    self.receivedJSON = objectNotation;
+    if (addError) {
+        *addError = self.error;
+    }
+    return self.successful;
+}
+
 @end
